@@ -1,18 +1,5 @@
 extends layout
 
 block content
-  div.main
-    div.head
-      h1: img(src='/images/top.png' alt='#{title}')
-      input(type='text' ng-model='query')
-      p.count count: {{count}}
-    article.tweets(ng-repeat='tweet in tweets')
-      img(ng-src='{{baseTweet(tweet).user.profile_image_url_https}}')
-      div.right
-        ul
-          li: a(ng-href='{{tweet|baseTweet|userPage}}' ng-bind-html="'@' + baseTweet(tweet).user.screen_name + ' / ' + baseTweet(tweet).user.name")
-        p(ng-bind-html='expandUrls(baseTweet(tweet))')
-        ul
-          li: a(ng-href='{{tweet|baseTweet|permalink}}'): time {{baseTweet(tweet).created_at | date: 'yyyy-MM-dd HH:mm:ss'}}
-          li: a(ng-href='{{tweet|baseTweet|favstar}}') ★
-          li(ng-bind-html="'From: ' + baseTweet(tweet).source")
+  div#container
+  script(src='/javascripts/app.js')

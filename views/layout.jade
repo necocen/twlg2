@@ -1,13 +1,10 @@
 doctype html
-html(ng-app='twlg')
+html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='socket.io/socket.io.js')
-    script(src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular.min.js')
-    script(src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-sanitize.min.js')
-    script(src='/javascripts/app.js')
-    script(src='/javascripts/services.js')
-    script(src='/javascripts/filters.js')
-  body(ng-controller='TwlgCtrl')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js')
+  body
     block content
