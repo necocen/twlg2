@@ -38,7 +38,7 @@
       ref  : "origin/master",
       repo : "git@github.com:necocen/twlg2.git",
       path : "/var/www/twlg",
-      "post-deploy" : "npm install && gulp deploy && pm2 startOrRestart ecosystem.json5 --env production"
+      "post-deploy" : "source ~/.zprofile && npm install && gulp deploy && pm2 startOrRestart ecosystem.json5 --env production"
     },
     dev : {
       user : "node",
