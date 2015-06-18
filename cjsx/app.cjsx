@@ -52,13 +52,13 @@ Tweet = React.createClass(
     @props.tweet.retweeted_status ? @props.tweet
   expandedText: ->
     tweet = @baseTweet()
-    urls = tweet.entities.urls.map (url) ->
+    urls = (tweet.entities.urls ? []).map (url) ->
       indices: url.indices
       display: "<a href=\"#{url.expanded_url}\">#{url.display_url}</a>"
-    medias = tweet.entities.media.map (media) ->
+    medias = (tweet.entities.media ? []).map (media) ->
       indices: media.indices
       display: "<a href=\"#{media.expanded_url}\">#{media.display_url}</a>"
-    mentions = tweet.entities.user_mentions.map (mention) ->
+    mentions = (tweet.entities.user_mentions ? []).map (mention) ->
       indices: mention.indices
       display: "<a href=\"https://twitter.com/#{mention.screen_name}\">@#{mention.screen_name}</a>"
     entities = urls.concat(medias, mentions)
