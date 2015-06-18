@@ -13,7 +13,7 @@
 
     // First application
     {
-      name      : "Twlg 2",
+      name      : "Twlg2",
       script    : "bin/www",
       args      : [],
       "exec_interpreter": "node",
