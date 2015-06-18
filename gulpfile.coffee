@@ -19,4 +19,4 @@ gulp.task 'watch', () ->
 
 gulp.task 'deploy', ['compile-coffee', 'compile-cjsx'], () ->
   gulp.src '../shared/config/default.yml'
-    .pipe symlink('./config/default.yml')
+    .pipe symlink('./config/default.yml', { force: true })
