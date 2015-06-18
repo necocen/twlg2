@@ -15,3 +15,6 @@ gulp.task 'compile-cjsx', () ->
 gulp.task 'watch', () ->
   gulp.watch './**/*.coffee', ['compile-coffee']
   gulp.watch './cjsx/**/*.cjsx', ['compile-cjsx']
+
+gulp.task 'deploy', ['compile-coffee', 'compile-cjsx'], () ->
+  # do nothing
