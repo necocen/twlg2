@@ -83,7 +83,8 @@ Tweet = React.createClass(
     tweet = @baseTweet()
     "https://favstar.fm/users/#{tweet.user.screen_name}/status/#{tweet.id_str}"
   createdAt: ->
-    moment(@baseTweet().created_at).format('YYYY-MM-DD HH:mm:ss')
+    console.log @baseTweet().created_at
+    moment(new Date(@baseTweet().created_at)).format('YYYY-MM-DD HH:mm:ss')
 
   render: ->
     <article className="tweets">
