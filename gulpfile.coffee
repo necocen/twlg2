@@ -1,6 +1,7 @@
 gulp   = require 'gulp'
 coffee = require 'gulp-coffee'
 cjsx   = require 'gulp-cjsx'
+symlink = require 'gulp-symlink'
 
 gulp.task 'compile-coffee', () ->
   gulp.src ['./{bin,routes,models}/*.coffee', './{app,utils}.coffee'], { base: './' }
@@ -17,4 +18,5 @@ gulp.task 'watch', () ->
   gulp.watch './cjsx/**/*.cjsx', ['compile-cjsx']
 
 gulp.task 'deploy', ['compile-coffee', 'compile-cjsx'], () ->
-  # do nothing
+  gulp.src '../shared/config/default.yml'
+    .pipe symlink('./config/default.yml')
