@@ -23,11 +23,16 @@ div.head p.count {
 	color: white;
 }
 
-article.tweets {
+article.tweets, article.loading {
 	width: 600px;
 	margin: 2ex 0;
 	border-radius: 2ex;
 	background-color: white;
+}
+
+article.loading {
+	text-align: center;
+  padding: 2ex 0;
 }
 
 article.tweets img {

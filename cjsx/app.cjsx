@@ -1,33 +1,36 @@
 Main = React.createClass(
   getInitialState: ->
-    {tweets: [], count: 0}
+    {tweets: [], count: 0, paging: false}
   componentDidMount: ->
     @socket = io.connect()
     @socket.on 'search', (msg) =>
-      @paging = false
       @done = msg.done
       @setState
         tweets: msg.result
         count: msg.count
+        paging: false
+
     @socket.on 'append', (msg) =>
       return unless msg.query == @query
-      @paging = false
       @done = msg.done
       @setState
         tweets: @state.tweets.concat(msg.result)
+        paging: false
 
     window.addEventListener 'scroll', (scroll) =>
       h = Math.max(document.documentElement.clientHeight, window.innerHeight ? 0)
       s = document.documentElement.scrollTop or document.body.scrollTop
       scrolled = (h + s) >= document.body.offsetHeight
-      @appendPage() if scrolled && !@paging && !@done
+      @appendPage() if scrolled && !@state.paging && !@done
 
     @search ''
 
   search: (query) ->
     @query = query
     @offset = 0
-    @paging = true
+    @done = false
+    @setState
+      paging: true
     @socket.emit 'search',
       query: @query
       skip: @offset
@@ -38,7 +41,8 @@ Main = React.createClass(
 
   appendPage: ->
     @offset += 30
-    @paging = true
+    @setState
+      paging: true
     @socket.emit 'search',
       query: @query
       skip: @offset
@@ -50,7 +54,7 @@ Main = React.createClass(
   render: ->
     <div className="main">
       <SearchBox handleInput={@search} count={@state.count} />
-      <TweetList tweets={@state.tweets} />
+      <TweetList tweets={@state.tweets} paging={@state.paging} />
     </div>
 )
 
@@ -66,6 +70,13 @@ SearchBox = React.createClass(
     </div>
 )
 
+Loading = React.createClass(
+  render: ->
+    <article className="loading">
+      <img src="/images/loading.gif" width="48" height="48" />
+    </article>
+)
+
 TweetList = React.createClass(
   render: ->
     Tweets = <div>Loading...</div>
@@ -74,6 +85,7 @@ TweetList = React.createClass(
         <Tweet key={tweet.id_str} tweet={tweet} />
     <div className="tweets">
       {Tweets}
+      {if @props.paging then <Loading /> else null }
     </div>
 )
 
