@@ -5,6 +5,7 @@ Main = React.createClass(
     @socket = io.connect()
     @socket.on 'search', (msg) =>
       @done = msg.done
+      window.scrollTo 0, 0
       @setState
         tweets: msg.result
         count: msg.count
