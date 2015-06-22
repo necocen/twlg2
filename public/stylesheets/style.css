@@ -4,7 +4,6 @@ padding: 0;
 }
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 	overflow-y: scroll;
 	background-color: #632c89;
@@ -17,10 +16,19 @@ div.main {
 
 div.head {
 	text-align: center;
+  position: fixed;
+  padding-top: 4ex;
+  width: inherit;
+  height: 200px;
+  background-color: #632c89;
 }
 
 div.head p.count {
 	color: white;
+}
+
+div.tweets {
+  padding-top: calc(200px + 4ex);
 }
 
 article.tweets, article.loading {
@@ -72,4 +80,3 @@ article.tweets ul li:before {
 article.tweets ul li:first-child:before {
 	content: "";
 }
-
