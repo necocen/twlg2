@@ -3,20 +3,50 @@ Main = React.createClass(
     {tweets: [], count: 0}
   componentDidMount: ->
     @socket = io.connect()
-    @socket.on 'connect', (msg) ->
-      console.log 'connect'
     @socket.on 'search', (msg) =>
-      @setState(
+      @paging = false
+      @done = msg.done
+      @setState
         tweets: msg.result
-        count: msg.count)
+        count: msg.count
+    @socket.on 'append', (msg) =>
+      return unless msg.query == @query
+      @paging = false
+      @done = msg.done
+      @setState
+        tweets: @state.tweets.concat(msg.result)
+
+    window.addEventListener 'scroll', (scroll) =>
+      h = Math.max(document.documentElement.clientHeight, window.innerHeight ? 0)
+      s = document.documentElement.scrollTop or document.body.scrollTop
+      scrolled = (h + s) >= document.body.offsetHeight
+      @appendPage() if scrolled && !@paging && !@done
+
+    @search ''
+
   search: (query) ->
+    @query = query
+    @offset = 0
+    @paging = true
     @socket.emit 'search',
-      query: query
-      skip: 0
+      query: @query
+      skip: @offset
       limit: 30
       dateMin: new Date(0) # distant past
       dateMax: new Date()  # present
       order: false
+
+  appendPage: ->
+    @offset += 30
+    @paging = true
+    @socket.emit 'search',
+      query: @query
+      skip: @offset
+      limit: 30
+      dateMin: new Date(0) # distant past
+      dateMax: new Date()  # present
+      order: false
+
   render: ->
     <div className="main">
       <SearchBox handleInput={@search} count={@state.count} />
