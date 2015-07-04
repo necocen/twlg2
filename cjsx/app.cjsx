@@ -53,7 +53,7 @@ Main = React.createClass(
       order: false
 
   render: ->
-    <div className="main">
+    <div id="main">
       <SearchBox handleInput={@search} count={@state.count} />
       <TweetList tweets={@state.tweets} paging={@state.paging} />
     </div>
@@ -64,10 +64,10 @@ SearchBox = React.createClass(
     @props.handleInput @refs.query.getDOMNode().value
 
   render: ->
-    <div className="head">
+    <div id="head">
       <h1><img src="/images/top.png" /></h1>
-      <input type="text" name="query" ref="query" onInput={@handleInput} />
-      <p className="count">count: {@props.count}</p>
+      <input type="text" name="query" ref="query" placeholder="Search" onInput={@handleInput} />
+      {if @props.count? then <p id="count">{@props.count} posts</p> else null}
     </div>
 )
 
@@ -84,7 +84,7 @@ TweetList = React.createClass(
     if @props.tweets?
       Tweets = @props.tweets.map (tweet) ->
         <Tweet key={tweet.id_str} tweet={tweet} />
-    <div className="tweets">
+    <div id="tweets">
       {Tweets}
       {if @props.paging then <Loading /> else null }
     </div>
@@ -129,17 +129,15 @@ Tweet = React.createClass(
     moment(new Date(@baseTweet().created_at)).format('YYYY-MM-DD HH:mm:ss')
 
   render: ->
-    <article className="tweets">
-      <img src={@baseTweet().user.profile_image_url_https} />
+    <article className="tweet">
+      <img className="profile_image" src={@baseTweet().user.profile_image_url_https} />
       <div className="right">
-        <ul>
-          <li><a href={@userLink()}>@{@baseTweet().user.screen_name} / {@baseTweet().user.name}</a></li>
-        </ul>
-        <p dangerouslySetInnerHTML={{__html: @expandedText()}}></p>
+        <p className="user"><a href={@userLink()}>@{@baseTweet().user.screen_name}&#x2005;/&#x2005;{@baseTweet().user.name}</a></p>
+        <p className="tweet_text" dangerouslySetInnerHTML={{__html: @expandedText()}}></p>
         <ul>
           <li><a href={@permalink()}><time>{@createdAt()}</time></a></li>
+          <li>From <span dangerouslySetInnerHTML={{__html: @baseTweet().source}}></span></li>
           <li><a href={@favstarLink()}>Favs</a></li>
-          <li>From: <span dangerouslySetInnerHTML={{__html: @baseTweet().source}}></span></li>
         </ul>
       </div>
     </article>

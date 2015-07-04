@@ -1,0 +1,89 @@
+@base-color: #632c89;
+@foreground-color: white;
+@graytext-color: lighten(black, 50%);
+@tweettext-color: lighten(black, 30%);
+@shadow-color: fadeout(lighten(black, 30%), 65%);
+@serif: Georgia, "Hiragino Mincho ProN W3";
+@sans: "Hiragino Maru Gothic ProN W3", Meiryo;
+
+body {
+  font: 16px @sans;
+  overflow-y: scroll;
+  background-color: lighten(@base-color, 40%);
+}
+
+#main { margin: 0 auto; }
+
+#head {
+  text-align: center;
+  position: fixed;
+  padding-top: 4ex;
+  width: 100%;
+  height: ~"calc(162px + 28px + 3ex)";
+  background-color: lighten(@base-color, 10%);
+  box-shadow: 0 1px 4px 2px @shadow-color;
+  h1 { margin: 0; }
+  #count {
+    margin: 0;
+    font: 18px @serif;
+    color: @foreground-color;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @foreground-color;
+    color: @foreground-color;
+  }
+}
+
+#tweets {
+  margin: 0 auto;
+  padding-top: ~"calc(162px + 28px + 3ex + 4ex)";
+  Width: 600px;
+  article {
+    margin: 2ex 0;
+    border-radius: 1px;
+    background-color: @foreground-color;
+    box-shadow: 0 4px 6px -2px @shadow-color;
+  }
+  .loading { padding: 2ex 0; text-align: center; }
+  .tweet {
+    font: 15px @sans;
+    .nav-link { color: inherit; text-decoration: none; }
+    img.profile_image {
+      width: 48px;
+      height: 48px;
+      padding: 1ex;
+      float: left;
+    }
+    .right {
+      width: ~"calc(100% - 48px - 3ex)";
+      margin-left: ~"calc(48px + 2ex)";
+      padding: 1ex 0;
+      &:after { clear: both; }
+    }
+    p.user {
+      margin: 0;
+      font: 12px @sans;
+      color: @graytext-color;
+      a { .nav-link; }
+    }
+    p.tweet_text {
+      margin: 3px 0;
+      color: @tweettext-color;
+      text-align: justify;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      font: 14px @serif;
+      color: @graytext-color;
+      li {
+        display: inline-block;
+        a { .nav-link; }
+        &:before { content: "\2005/\2005"; }
+        &:first-child:before { content: ""; }
+      }
+    }
+  }
+}

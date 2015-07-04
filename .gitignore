@@ -26,8 +26,9 @@ build/Release
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
 
-# Compiled js
+# Compiled js/css
 *.js
+*.css
 
 # Config file
 config/*.yml
