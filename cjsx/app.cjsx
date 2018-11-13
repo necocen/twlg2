@@ -137,7 +137,6 @@ Tweet = React.createClass(
         <ul>
           <li><a href={@permalink()}><time>{@createdAt()}</time></a></li>
           <li>From <span dangerouslySetInnerHTML={{__html: @baseTweet().source}}></span></li>
-          <li><a href={@favstarLink()}>Favs</a></li>
         </ul>
       </div>
     </article>
