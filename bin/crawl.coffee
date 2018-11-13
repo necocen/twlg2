@@ -30,6 +30,7 @@ crawl = (sinceId, maxId) ->
     include_rts: 1
     count: 200
     exclude_replies: false
+    tweet_mode: "extended"
   params.since_id = sinceId if sinceId?
   params.max_id = maxId if maxId?
   twitter.get '/statuses/user_timeline.json', params, (error, data, response) ->
@@ -42,6 +43,8 @@ crawl = (sinceId, maxId) ->
       else
         firstId = data[0].id_str
         lastId = data[data.length - 1].id_str
+        for i in [0..(data.length - 1)]
+          data[i].text = data[i].full_text
         console.log "Retrieved #{data.length} posts: #{firstId} -- #{lastId}"
         promise = promise.then ->
           Tweet.create data, ->
